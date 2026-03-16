@@ -293,7 +293,6 @@ export default function App() {
       setConnected(true);
       setLastUpdate(new Date());
 
-      // DB node2 was showing in Low, DB node3 in Medium — swapped here to fix:
       setPower({
         node1: data.node1 ?? 0,
         node2: data.node3 ?? 0,  // DB node3 → display Node 2 (Medium)
@@ -302,8 +301,8 @@ export default function App() {
       });
       setHistory(prev => ({
         node1: [...prev.node1.slice(-MAX_HISTORY + 1), data.node1 ?? 0],
-        node2: [...prev.node2.slice(-MAX_HISTORY + 1), data.node3 ?? 0],  // swapped
-        node3: [...prev.node3.slice(-MAX_HISTORY + 1), data.node2 ?? 0],  // swapped
+        node2: [...prev.node2.slice(-MAX_HISTORY + 1), data.node3 ?? 0],  
+        node3: [...prev.node3.slice(-MAX_HISTORY + 1), data.node2 ?? 0],  
       }));
       tickRef.current += 1;
     }, () => setConnected(false));
