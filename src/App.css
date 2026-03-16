@@ -363,8 +363,8 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #00e5a0, #ffaa00, #ff4d4d);
-  box-shadow: 0 0 12px #00e5a055;
+  background: linear-gradient(90deg, #ff4d4d, #ffaa00, #00e5a0);
+  box-shadow: 0 0 12px #ff4d4d55;
 }
 
 .billing-header {
@@ -429,14 +429,14 @@ body {
   font-family: var(--mono);
   font-size: 1.6rem;
   font-weight: 700;
-  color: #00e5a0;
+  color: #ff4d4d;
   line-height: 1;
-  filter: drop-shadow(0 0 8px #00e5a044);
+  filter: drop-shadow(0 0 8px #ff4d4d44);
 }
 
 .billing-live-value sup { font-size: 0.8rem; color: var(--muted); }
 .billing-live-value.accent2 { color: #ffaa00; filter: drop-shadow(0 0 8px #ffaa0044); }
-.billing-live-value.accent3 { color: #ff4d4d; filter: drop-shadow(0 0 8px #ff4d4d44); }
+.billing-live-value.accent3 { color: #00e5a0; filter: drop-shadow(0 0 8px #00e5a044); }
 
 /* Per-node breakdown */
 .billing-breakdown-label {
