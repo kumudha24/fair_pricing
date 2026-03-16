@@ -30,8 +30,8 @@ function calcCostPerMin(watts) {
 
 const NODE_META = {
   node1: { label: "Node 1", role: "High Consumption",   icon: "⚡", color: "#ff4d4d", glow: "#ff4d4d55" },
-  node2: { label: "Node 2", role: "Medium Consumption", icon: "🔆", color: "#ffaa00", glow: "#ffaa0055" },
-  node3: { label: "Node 3", role: "Low Consumption",    icon: "🌿", color: "#00e5a0", glow: "#00e5a055" },
+  node2: { label: "Node 2", role: "Low Consumption",    icon: "🔆", color: "#ffaa00", glow: "#ffaa0055" },
+  node3: { label: "Node 3", role: "Medium Consumption", icon: "🌿", color: "#00e5a0", glow: "#00e5a055" },
 };
 
 const MAX_HISTORY = 30;
@@ -163,7 +163,7 @@ function NodeCard({ nodeKey, value, history }) {
         <SparkLine history={history} color={meta.color} />
       </div>
 
-      {/* Pricing badge — the new addition */}
+      {/* Pricing badge */}
       <PricingBadge watts={value} color={meta.color} />
 
       <div className="card-footer">
@@ -182,11 +182,10 @@ function NodeCard({ nodeKey, value, history }) {
 
 // ── Billing summary panel ─────────────────────────
 function BillingSummary({ power, history }) {
-  const totalPerHour = calcCostPerHour(power.total);
-  const totalPerDay  = totalPerHour * 24;
+  const totalPerHour  = calcCostPerHour(power.total);
+  const totalPerDay   = totalPerHour * 24;
   const totalPerMonth = totalPerDay * 30;
 
-  // Average-based projections using history
   const avgNode1 = history.node1.length
     ? history.node1.reduce((a, b) => a + b, 0) / history.node1.length : 0;
   const avgNode2 = history.node2.length
@@ -194,7 +193,7 @@ function BillingSummary({ power, history }) {
   const avgNode3 = history.node3.length
     ? history.node3.reduce((a, b) => a + b, 0) / history.node3.length : 0;
 
-  const avgTotal = avgNode1 + avgNode2 + avgNode3;
+  const avgTotal  = avgNode1 + avgNode2 + avgNode3;
   const avgPerHour = calcCostPerHour(avgTotal);
 
   const nodes = [
@@ -203,7 +202,6 @@ function BillingSummary({ power, history }) {
     { key: "node3", label: "Node 3", watts: power.node3, meta: NODE_META.node3 },
   ];
 
-  // Percentage share of each node in total cost
   const totalCost = nodes.reduce((s, n) => s + calcCostPerHour(n.watts), 0) || 1;
 
   return (
@@ -237,7 +235,7 @@ function BillingSummary({ power, history }) {
       <div className="billing-breakdown-label">NODE-WISE COST SHARE</div>
       <div className="billing-breakdown">
         {nodes.map(({ key, label, watts, meta }) => {
-          const costHr  = calcCostPerHour(watts);
+          const costHr   = calcCostPerHour(watts);
           const sharePct = (costHr / totalCost) * 100;
           return (
             <div key={key} className="billing-row" style={{ "--nc": meta.color }}>
@@ -280,8 +278,8 @@ function BillingSummary({ power, history }) {
 }
 
 export default function App() {
-  const [power, setPower]     = useState({ node1: 0, node2: 0, node3: 0, total: 0 });
-  const [history, setHistory] = useState({ node1: [], node2: [], node3: [] });
+  const [power, setPower]         = useState({ node1: 0, node2: 0, node3: 0, total: 0 });
+  const [history, setHistory]     = useState({ node1: [], node2: [], node3: [] });
   const [connected, setConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState(null);
   const tickRef = useRef(0);
